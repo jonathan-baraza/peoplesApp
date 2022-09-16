@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+* {
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.mains {
+  background-image: url("./assets/bg2.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  width: 100%;
+  height: fit-content;
+}
+
+.cover {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; */
+}
+
+.nav {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.content {
+  min-height: 75vh;
+}
+
+.myfooter {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
+}
+
+#form {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+#itemsContainer {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.nav-item {
+  cursor: pointer;
+  color: black !important;
+}
+.nav-link {
+  color: black !important;
+  transition: 0.2s;
+}
+.nav-link:hover {
+  transform: scale(1.05);
+}
+
+label {
+  font-weight: bold;
+}
+
+.spinner {
+  width: 50%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinnerIcon {
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
