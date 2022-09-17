@@ -13,7 +13,15 @@ const getItems = async (req, res) => {
 };
 
 const addItem = async (req, res) => {
-  res.send("adding");
+  //Incase of success
+  res.status(200).json({
+    success: true,
+    message: "Successfully posted",
+    myData: req.body,
+  });
+
+  //Incase of error ps you can uncomment and comment the first one
+  // res.status(200).json({ success: false, message: "Failed to  post" });
 };
 
 module.exports = {

@@ -3,13 +3,21 @@ import Item from "./Item";
 import axios from "axios";
 import Spinner from "./Spinner";
 import { useSelector, useDispatch } from "react-redux";
-import { getItems } from "./slices/mainSlice";
+import { getItems, refetchItems } from "./slices/mainSlice";
 function Items() {
   const dispatch = useDispatch();
-  const { isLoading, error, items } = useSelector((state) => state.main);
+  const { isLoading, error, items, isRefetching } = useSelector(
+    (state) => state.main
+  );
 
   useEffect(() => {
     dispatch(getItems());
+    const interval = setInterval(() => {
+      console.log("Another fetch");
+      dispatch(refetchItems());
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   if (isLoading) {
@@ -29,8 +37,13 @@ function Items() {
       <table className="table m-2 mx-auto table-bordered table-striped">
         <thead className="bg-dark text-light text-center">
           <tr className="text-center">
-            <th colSpan={5} className="">
+            <th colSpan={5} className=" " style={{ position: "relative" }}>
               All ITEMS
+              {isRefetching && (
+                <small style={{ position: "absolute", right: "20px" }}>
+                  Refetching items...
+                </small>
+              )}
             </th>
           </tr>
           <tr>

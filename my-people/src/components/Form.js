@@ -33,6 +33,7 @@ function Form() {
   const handleSubmit = async () => {
     const formData = { name, email, phone, address };
 
+    //PS: CORS HAS TO BE DISABLED ON THE SERVER
     // const response = await fetch(
     //   "http://developers.gictsystems.com/api/dummy/items/",
     //   {
@@ -47,12 +48,18 @@ function Form() {
     // );
     // console.log(response);
     try {
-      const res = await axios.get("/api/");
-      console.log("res");
-      console.log(res);
+      const { data } = await axios.post("/api/", formData);
+      const { success, message, myData } = data;
+      if (success) {
+        swal("Success", message + "\n check console for more info", "success");
+        console.log("This is the data you sent");
+        console.log(myData);
+      } else {
+        swal("Error", message, "error");
+      }
     } catch (e) {
-      console.log("Error");
       console.log(e);
+      swal("Error", "Something went wrong", "error");
     }
   };
 
@@ -63,7 +70,7 @@ function Form() {
           Please fill in the details below
         </h4>
         <div className="form-group mt-2">
-          <label for="name">Full Names</label>
+          <label htmlFor="name">Full Names</label>
           <input
             value={name}
             name="names"
@@ -75,7 +82,7 @@ function Form() {
           />
         </div>
         <div className="form-group mt-2">
-          <label for="name">Email</label>
+          <label htmlFor="name">Email</label>
           <input
             value={email}
             name="email"
@@ -87,7 +94,7 @@ function Form() {
           />
         </div>
         <div className="form-group mt-2">
-          <label for="phone">Phone</label>
+          <label htmlFor="phone">Phone</label>
           <input
             value={phone}
             onChange={(e) => {
@@ -99,7 +106,7 @@ function Form() {
           />
         </div>
         <div className="form-group mt-2">
-          <label for="address">Address</label>
+          <label htmlFor="address">Address</label>
           <input
             value={address}
             onChange={(e) => {

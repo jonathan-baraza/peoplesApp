@@ -6,9 +6,16 @@ const initialState = {
   isFormOpen: false,
   isLoading: false,
   error: false,
+  isRefetching: false,
 };
 
 export const getItems = createAsyncThunk("main/getItems", async () => {
+  const response = await axios.get("/api/");
+  const { data } = response.data;
+  return data;
+});
+
+export const refetchItems = createAsyncThunk("main/refetchItems", async () => {
   const response = await axios.get("/api/");
   const { data } = response.data;
   return data;
@@ -39,6 +46,17 @@ const mainSlice = createSlice({
     },
     [getItems.rejected]: (state, action) => {
       state.isLoading = false;
+      state.error = true;
+    },
+    [refetchItems.pending]: (state, action) => {
+      state.isRefetching = true;
+    },
+    [refetchItems.fulfilled]: (state, action) => {
+      state.isRefetching = false;
+      state.items = action.payload;
+    },
+    [refetchItems.rejected]: (state, action) => {
+      state.isRefetching = false;
       state.error = true;
     },
   },
